@@ -1,0 +1,52 @@
+//1 
+db.moviedata.find({movie_name:{$eq:"S.W.A.T."}}).pretty()
+
+
+//2
+db.moviedata.find({movie_name:{$ne:"S.W.A.T."}}).pretty()
+
+
+//3
+db.moviedata.find({budget:{$gt:10000}}).pretty()
+
+db.moviedata.find({budget:{$gte:18586}}).pretty()
+
+
+//4
+db.moviedata.find({budget:{$lt:9100}}).pretty()
+
+db.moviedata.find({budget:{$lte:9050}}).pretty()
+
+
+//5
+db.moviedata.find({$and:[{budget:{$gt:10000}},{production_year:{$gt:2000}}]}).pretty()
+
+
+//6
+db.moviedata.find({$or:[{budget:{$gt:10000}},{production_year:{$gt:2000}}]}).pretty()
+
+
+//7
+ db.moviedata.find({$nor:[{budget:{$gt:10000}},{production_year:{$gt:2000}}]}).pretty()
+
+
+//8
+db.moviedata.find({$or:[{budget:{$ne:10000}},{production_year:{$ne:2000}}]}).pretty()
+
+
+//9
+db.moviedata.find({production_year: {$in:[2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010]}}).pretty()
+
+
+//10
+db.moviedata.find().sort({production_year:-1 ,movie_name:1 }).pretty()
+
+
+//11
+db.moviedata.find().sort({production_year:-1 ,movie_name:1 }).skip(10).limit(5).pretty()
+
+
+//12
+db.moviedata.find({"production_year": {$lt: 2020}}).skip(10).limit(10).forEach(function(movie){db.moviedata.update({_id:movie._id},{$unset:{"movie_genre":""}})})
+
+db.moviedata.find({"production_year": {$lt: 2020}}).skip(10).limit(10).pretty()
